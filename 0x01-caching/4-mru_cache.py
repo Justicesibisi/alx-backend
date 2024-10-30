@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Task 4: MRU Caching.
 """
 from collections import OrderedDict
