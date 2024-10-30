@@ -3,13 +3,15 @@
 from base_caching import BaseCaching
 
 class FIFOCache(BaseCaching):
+    """FIFO caching system class"""
+
     def __init__(self):
-        """Initialize the FIFOCache class"""
+        """Initialize the FIFOCache class."""
         super().__init__()
         self.order = []
 
     def put(self, key, item):
-        """Add an item in the cache using FIFO"""
+        """Add an item in the cache using FIFO."""
         if key is None or item is None:
             return
         
@@ -30,5 +32,5 @@ class FIFOCache(BaseCaching):
             print(f"DISCARD: {discarded_key}")
 
     def get(self, key):
-        """Get an item by key"""
+        """Get an item by key."""
         return self.cache_data.get(key, None)
