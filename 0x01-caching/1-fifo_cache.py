@@ -1,36 +1,37 @@
 #!/usr/bin/python3
-
+"""Task 1: FIFO Caching."""
 from base_caching import BaseCaching
 
 class FIFOCache(BaseCaching):
-    """FIFO caching system class"""
+    """Represents a caching system with FIFO eviction."""
 
     def __init__(self):
-        """Initialize the FIFOCache class."""
+        """Initialize the cache."""
         super().__init__()
-        self.order = []
+        self.key_order = []  # List to maintain the order of keys for FIFO
 
     def put(self, key, item):
         """Add an item in the cache using FIFO."""
         if key is None or item is None:
             return
-        
-        # If key already exists, update value and return
-        if key in self.cache_data:
-            self.cache_data[key] = item
-            return
-        
-        # Add key-value to cache
-        self.cache_data[key] = item
-        self.order.append(key)
 
-        # If we exceed the MAX_ITEMS limit, discard the oldest item (FIFO)
+        # Add the key's item to the cache
+        self.cache_data[key] = item
+
+        # If key already exists, remove it from the order list before re-adding it
+        if key in self.key_order:
+            self.key_order.remove(key)
+
+        # Append the key to the order list
+        self.key_order.append(key)
+
+        # Check if the cache exceeds MAX_ITEMS
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            # FIFO: remove the first item in 'order'
-            discarded_key = self.order.pop(0)
-            del self.cache_data[discarded_key]
-            print(f"DISCARD: {discarded_key}")
+            # Remove the first key added (FIFO)
+            first_key = self.key_order.pop(0)
+            del self.cache_data[first_key]
+            print("DISCARD:", first_key)
 
     def get(self, key):
-        """Get an item by key."""
+        """Retrieve an item by key."""
         return self.cache_data.get(key, None)
