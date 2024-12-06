@@ -7,16 +7,31 @@ Using Kue as queue system
 Building an express app that interacts with a redis server
 Building an express app that interacts with Redis server and queue
 Tasks
-Redis installation and setting the value School for the key Holberton
 
-File: dump.rdb
-Script that connects to redis servers running locally
+## file 0: Install a Redis Instance
 
-File: 0-redis_client.js
-Functions:
+### Steps
+- Downloaded and compiled Redis version 6.0.10.
+- Started the Redis server and confirmed it was running using `ping`.
+- Set the key `ALX` to the value `School`.
+- Verified the value retrieval using `get ALX`.
+- Stopped the Redis server and copied `dump.rdb` to the project root.
 
-SetNewSchool - sets value for given key
-displaySchoolValues - retrieves value of given key
+### Commands Used
+```bash
+wget http://download.redis.io/releases/redis-6.0.10.tar.gz
+tar xzf redis-6.0.10.tar.gz
+cd redis-6.0.10
+make
+src/redis-server &
+src/redis-cli
+# Inside the Redis client:
+# ping
+# set ALX School
+# get ALX
+kill [PID_OF_Redis_Server]
+cp dump.rdb ..
+
 File: 1-redis_op.js
 Extension of 1-redis_op.js that modifies displaySchoolValue function to work using promises.
 
